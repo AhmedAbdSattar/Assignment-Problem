@@ -7,8 +7,9 @@ package assignmentproblem;
 
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,31 +21,28 @@ import javax.swing.*;
  * @author Ahmed
  */
 public class Gui extends JFrame {
-    JTextField Row ;
+    JTextField MAT ;
     JLabel row ;
     JLabel project ;
     JButton GO ;
-    JPanel matrixContainer ;
+    JButton clear ;
     Font newFont;
     Font Title ;
-    JTextField tf; 
-    int matrix=5; //here we sholud put matrix that user will enter it 
     JButton Solve;
+    PanelOfproject matrixContainer;
+            public Gui() { //constractor
+            row = new JLabel("Enter Matrix :");
+            MAT = new JTextField(5);
+            GO = new JButton("Go");
+            Solve = new JButton("Solve");
+            newFont = new Font("Arial", Font.ITALIC, 15);  
+            project=new JLabel("Balance Assignment Model SW");
+            Title = new Font("Arial",Font.BOLD,25);
+            matrixContainer = new PanelOfproject();
+            clear =new JButton("Clear") ;
+           }
     
-    
-    public Gui() { //constractor
-    row = new JLabel("Enter Matrix :");
-    Row = new JTextField(5);
-    GO = new JButton("Go");
-    Solve = new JButton("Solve");
-    matrixContainer = new JPanel() ;
-    newFont = new Font("Arial", Font.ITALIC, 15);  
-    project=new JLabel("Balance Assignment Model SW");
-    Title = new Font("Arial",Font.BOLD,25);
-    tf= new JTextField(20); 
-   }
-    
-public void Run() {
+  public void Run() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500, 900);
         this.setLocation(350,0);
@@ -54,39 +52,46 @@ public void Run() {
         row.setForeground(Color.WHITE);     project.setForeground(Color.CYAN);
         row.setFont(newFont); GO.setFont(newFont); project.setFont(Title);
         row.setBounds(100, 100, 100, 20);
-        Row.setBounds(200, 100, 100, 20);
+        MAT.setBounds(200, 100, 100, 20);
         GO.setBounds(320, 100, 60, 20);
         project.setBounds(60, -200, 500, 500);
-        Solve.setBounds(170, 450, 150, 50);
+        Solve.setBounds(70, 450, 150, 50);
+        clear.setBounds(270, 450, 150, 50);
         Solve.setFont(Title);
+        clear.setFont(Title);
+        clear.setBackground(Color.GREEN);
         Solve.setBackground(Color.CYAN);
         matrixContainer.setBounds(90, 150, 300, 250);
-        matrixContainer.setBackground(Color.GRAY);
-        matrixContainer.setLayout(new GridLayout(matrix,matrix,5,5));
         
-         for (int  i =0; i < matrix; i++) {
-           for ( int j =0 ; j < matrix ; j++) {
-          matrixContainer.add(new JTextField(""+i));
-         }
-    }
+        
+        myhandler hand =new myhandler();
+         GO.addActionListener(hand);
+         clear.addActionListener(hand);
 
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    this.add(project);
-    this.add(row);
-    this.add(Row);
-    this.add(GO);
-    this.add(matrixContainer);
-    this.add(Solve);
-    this.setVisible(true);
+        this.add(GO);
+        this.add(clear);
+        this.add(project);
+        this.add(row);
+        this.add(MAT);
+        this.add(Solve);
+        this.add(matrixContainer);
+        this.setVisible(true);
     }
+        class myhandler implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource()==GO){
+                final int  matrix = Integer.valueOf(MAT.getText());
+                JOptionPane.showMessageDialog(project, matrix);
+                matrixContainer.createMatrix(matrix);
+                matrixContainer.setVisible(true);
+                
+            }else if (e.getSource()==clear){
+                matrixContainer.setVisible(false);
+                
+            }
+        }
+        
+    } 
 }
