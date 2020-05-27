@@ -86,6 +86,10 @@ public class Gui extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if(e.getSource()==GO){
                 final int  matrix = Integer.valueOf(MAT.getText());
+                if(matrix <=1 ){
+                    JOptionPane.showMessageDialog(null, "please enter number Greater than 1");
+                    System.exit(0);
+                }
                 JOptionPane.showMessageDialog(project, matrix);
                 matrixContainer.createMatrix(matrix);
                 matrixContainer.setVisible(true);
