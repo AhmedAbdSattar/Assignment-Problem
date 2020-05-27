@@ -27,18 +27,18 @@ public class Reduction {
             } //end for loop for J
 
         } //start for loop for I
-  /*subtract the smallest element in rows from other elemnt*/  
-    for( i=0; i<array.length; i++){
-         for( j=0 ; j<array.length ;j++){
-             array[i][j]-=minrow[i];
-         }
-    }
+        /*subtract the smallest element in rows from other elemnt*/  
+        for( i=0; i<array.length; i++){
+            for( j=0 ; j<array.length ;j++){
+                array[i][j]-=minrow[i];
+            }
+        }
     
         return array;
     } 
     //reduction coulmn  this process will happen in coulmn  part 
     public int [][] reductColumn ( int array [][]){
-                 int[] minrow= new int[array.length]; //initial array which save the 
+        int[] minrow= new int[array.length]; //initial array which save the 
         int i ,j;
         
         for( i=0; i<array.length ; i++){ //start for loop for I

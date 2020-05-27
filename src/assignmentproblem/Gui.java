@@ -40,6 +40,8 @@ public class Gui extends JFrame {
             Title = new Font("Arial",Font.BOLD,25);
             matrixContainer = new PanelOfproject();
             clear =new JButton("Clear") ;
+            clear.setVisible(false);
+            Solve.setVisible(false);
            }
     
   public void Run() {
@@ -65,8 +67,9 @@ public class Gui extends JFrame {
         
         
         myhandler hand =new myhandler();
-         GO.addActionListener(hand);
-         clear.addActionListener(hand);
+        GO.addActionListener(hand);
+        clear.addActionListener(hand);
+        Solve.addActionListener(hand);
 
         this.add(GO);
         this.add(clear);
@@ -86,12 +89,29 @@ public class Gui extends JFrame {
                 JOptionPane.showMessageDialog(project, matrix);
                 matrixContainer.createMatrix(matrix);
                 matrixContainer.setVisible(true);
-                
+                GO.setVisible(false);
+                row.setVisible(false);
+                MAT.setVisible(false);
+                clear.setVisible(true);
+                Solve.setVisible(true);
             }else if (e.getSource()==clear){
-                matrixContainer.setVisible(false);
-                
+                matrixContainer.clearMatrix();
+                matrixContainer.setVisible(true);
+                GO.setVisible(true);
+                row.setVisible(true);
+                MAT.setVisible(true);
+                MAT.setText(null);
+                clear.setVisible(false);
+                Solve.setVisible(false);
+            }else if (e.getSource() == Solve){
+                int [][] mat_array = matrixContainer.getMatrix();
+                //show the matrix
+                for (int i = 0; i < matrixContainer.matrix_size; i++){
+                    for (int j = 0; j < matrixContainer.matrix_size; j++){
+                        JOptionPane.showMessageDialog(null, mat_array[i][j]);
+                    }
+                }
             }
         }
-        
     } 
 }
