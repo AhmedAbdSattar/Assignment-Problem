@@ -5,6 +5,8 @@
  */
 package assignmentproblem.matrix;
 
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -13,19 +15,16 @@ package assignmentproblem.matrix;
 public class Reduction {
 //reduction row this process will happen in row part 
     public int [][] reductRow( int array [][]){
-        
         int[] minrow= new int[array.length]; //initial array which save the 
         int i ,j;
-        
         for( i=0; i<array.length ; i++){ //start for loop for I
-           int min = Integer.MAX_VALUE;  //initial min with MAX int value
+            int min = Integer.MAX_VALUE;  //initial min with MAX int value
             for( j=0 ; j<array.length ;j++){ //start for loop for J
                 if(array[i][j] < min){ // if element smaller than min
                     min=array[i][j]; //assign a new min value
                 }//END IF 
                 minrow[i] = min;//save the min value in row in array
             } //end for loop for J
-
         } //start for loop for I
         /*subtract the smallest element in rows from other elemnt*/  
         for( i=0; i<array.length; i++){
@@ -33,7 +32,6 @@ public class Reduction {
                 array[i][j]-=minrow[i];
             }
         }
-    
         return array;
     } 
     //reduction coulmn  this process will happen in coulmn  part 
@@ -57,8 +55,6 @@ public class Reduction {
              array[j][i]-=minrow[i];
          }
        }                
-        return array;
-    }
-    
+    return array;
+    }    
 }
-
