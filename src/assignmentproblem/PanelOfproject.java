@@ -7,6 +7,7 @@ package assignmentproblem;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -62,4 +63,5 @@ public class PanelOfproject extends JPanel{
         }
         return matrix_array;  
     }
+     
 }

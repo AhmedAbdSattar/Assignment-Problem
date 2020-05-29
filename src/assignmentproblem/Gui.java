@@ -34,6 +34,7 @@ public class Gui extends JFrame {
     ScannigRowAndColumn scanning;
     IdentifyMinimumUnselectedCell identifyTheMinimum;
     PanelOfproject matrixContainer;
+    ShowResult resultPanel;
             public Gui() { //constractor
             row = new JLabel("Enter Matrix :");
             MAT = new JTextField(5);
@@ -43,6 +44,7 @@ public class Gui extends JFrame {
             project=new JLabel("Balance Assignment Model SW");
             Title = new Font("Arial",Font.BOLD,25);
             matrixContainer = new PanelOfproject();
+            resultPanel = new ShowResult();
             clear =new JButton("Clear") ;
             clear.setVisible(false);
             Solve.setVisible(false);
@@ -71,13 +73,15 @@ public class Gui extends JFrame {
         clear.setBackground(Color.GREEN);
         Solve.setBackground(Color.CYAN);
         matrixContainer.setBounds(90, 150, 300, 250);
-        
+        resultPanel.setBounds(90, 550, 300, 100);
+        resultPanel.setVisible(false);
         
         myhandler hand =new myhandler();
         GO.addActionListener(hand);
         clear.addActionListener(hand);
         Solve.addActionListener(hand);
-
+        
+        
         this.add(GO);
         this.add(clear);
         this.add(project);
@@ -85,6 +89,7 @@ public class Gui extends JFrame {
         this.add(MAT);
         this.add(Solve);
         this.add(matrixContainer);
+        this.add(resultPanel);
         this.setVisible(true);
     }
         class myhandler implements ActionListener{
@@ -96,7 +101,6 @@ public class Gui extends JFrame {
                 if(matrix <=1 ){
                     JOptionPane.showMessageDialog(null, "please enter number Greater than 1");
                 }else{
-                    JOptionPane.showMessageDialog(project, matrix);
                     matrixContainer.createMatrix(matrix);
                     matrixContainer.setVisible(true);
                     GO.setVisible(false);
@@ -104,6 +108,7 @@ public class Gui extends JFrame {
                     MAT.setVisible(false);
                     clear.setVisible(true);
                     Solve.setVisible(true);
+                    resultPanel.setVisible(false);
                 }
             }else if (e.getSource()==clear){
                 matrixContainer.clearMatrix();
@@ -114,6 +119,7 @@ public class Gui extends JFrame {
                 MAT.setText(null);
                 clear.setVisible(false);
                 Solve.setVisible(false);
+                resultPanel.setVisible(false);
             }else if (e.getSource() == Solve){
                 int [][] mat_array = matrixContainer.getMatrix();
                 reduction.reductRow(mat_array);
@@ -129,9 +135,15 @@ public class Gui extends JFrame {
                     squaresNumber = scanning.getSquaresSelected();
                 }
                 int[] optimal = scanning.getOptimalSoultion();
-                for(int i = 0; i < optimal.length; i++){
-                    JOptionPane.showMessageDialog(null, "the Optimal solution for "+(i+1)+" is: "+(optimal[i]+1));
-                }
+                resultPanel.createOptimalGui(optimal);
+                resultPanel.setVisible(true);
+                matrixContainer.setVisible(true);
+                GO.setVisible(false);
+                row.setVisible(false);
+                MAT.setVisible(false);
+                MAT.setText(null);
+                clear.setVisible(true);
+                Solve.setVisible(false);
             }
         }
     } 
